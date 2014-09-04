@@ -202,10 +202,15 @@ public class SearchListFragment extends SwipeRefreshListFragment implements OnRe
 		setListShown(true);
 		adapter.setItems(this.list);
 		endlessAdapter.onDataReady();
-		if (newList != null && newList.size() >= PAGE_SIZE)
+		if (newList != null && newList.size() >= PAGE_SIZE) {
 			endlessAdapter.restartAppending();
-		else
+		} else {
 			endlessAdapter.stopAppending();
+		}
+		
+		if (!appendResults) {
+			getListView().setSelection(0);				// reset list scroll position after setting new list
+		}
 	}
 
 	
