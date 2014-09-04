@@ -103,6 +103,7 @@ public class SearchListFragment extends SwipeRefreshListFragment implements OnRe
 	public void onDestroyView() {
 		super.onDestroyView();
 		adapter = null;
+		endlessAdapter = null;
 	}
 	
 	@Override
