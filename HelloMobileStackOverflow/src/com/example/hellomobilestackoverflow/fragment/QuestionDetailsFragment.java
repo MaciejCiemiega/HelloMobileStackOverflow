@@ -2,7 +2,6 @@ package com.example.hellomobilestackoverflow.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -51,8 +50,6 @@ public class QuestionDetailsFragment extends Fragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		ButterKnife.inject(this, view);
-		
-		ViewCompat.setLayerType(webView, ViewCompat.LAYER_TYPE_SOFTWARE, null);
 	}
 	
 	@Override
@@ -60,10 +57,10 @@ public class QuestionDetailsFragment extends Fragment {
 		super.onViewStateRestored(savedInstanceState);
 		
 		Question question = null;
-		if(getArguments() != null) {
-			question = getArguments().getParcelable(EXTRA_QUESTION_ITEM_KEY);
-		} else if (savedInstanceState != null) {
+		if (savedInstanceState != null) {
 			question = savedInstanceState.getParcelable(EXTRA_QUESTION_ITEM_KEY);
+		} else if(getArguments() != null) {
+			question = getArguments().getParcelable(EXTRA_QUESTION_ITEM_KEY);
 		}
 		
 		if(question != null) {
@@ -73,14 +70,15 @@ public class QuestionDetailsFragment extends Fragment {
 	
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
 		outState.putParcelable(EXTRA_QUESTION_ITEM_KEY, question);
+		super.onSaveInstanceState(outState);
 	}
 	
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
 		ButterKnife.reset(this);
+		this.question = null;
 	}
 	
 	
